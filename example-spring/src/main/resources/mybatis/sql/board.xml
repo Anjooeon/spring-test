@@ -17,7 +17,7 @@
 		FROM T_BOARD B
 		where B.BOARD_SEQ = #{boardSeq}
 	</select>
-	<insert id="save" parameterType="co.kr.springboot.mvc.domain.Board" useGeneratedKeys="true" keyProperty="boardSeq">
+	<insert id="save" parameterType="co.kr.springboot.mvc.parameter.BoardParameter" useGeneratedKeys="true" keyProperty="boardSeq">
 		INSERT INTO T_BOARD
 		(
 		  TITLE
@@ -29,7 +29,7 @@
 		, #{contents}
 		)		
 	</insert>
-	<update id="update" parameterType="co.kr.springboot.mvc.domain.Board">
+	<update id="update" parameterType="co.kr.springboot.mvc.parameter.BoardParameter">
 		UPDATE T_BOARD 
 		SET TITLE = #{title}
 		, CONTENTS = #{contents}

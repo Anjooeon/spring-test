@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.kr.springboot.mvc.domain.Board;
+import co.kr.springboot.mvc.parameter.BoardParameter;
 import co.kr.springboot.mvc.repository.BoardRepository;
 
-/*게시판 service*/
+/**
+ * 게시판 Service
+ * @author 안주연
+ * */
 @Service
 public class BoardService {
 	@Autowired
@@ -23,7 +27,7 @@ public class BoardService {
 		return boardRepository.get(boardSeq);
 	}
 	/*저장/업데이트 처리*/
-	public void save(Board parameter) {
+	public void save(BoardParameter parameter) {
 		Board board= boardRepository.get(parameter.getBoardSeq());
 		if(board == null) {			
 			boardRepository.save(parameter);

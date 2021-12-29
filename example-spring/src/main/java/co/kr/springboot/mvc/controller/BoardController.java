@@ -20,11 +20,13 @@ import co.kr.springboot.configuration.http.BaseResponse;
 import co.kr.springboot.configuration.http.BaseResponseCode;
 import co.kr.springboot.mvc.domain.Board;
 import co.kr.springboot.mvc.parameter.BoardParameter;
+import co.kr.springboot.mvc.parameter.BoardSearchParameter;
 import co.kr.springboot.mvc.service.BoardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * 게시판 Controller
@@ -44,8 +46,8 @@ public class BoardController {
 	@GetMapping("/list")
 	@ApiOperation(value = "목록 조회", notes = "게시물에 모든 목록을 조회할 수 있습니다.")
 	
-	public BaseResponse<List<Board>> getList(){
-		return new BaseResponse<List<Board>>(boardService.getList());
+	public BaseResponse<List<Board>> getList(@ApiParam BoardSearchParameter parameter){
+		return new BaseResponse<List<Board>>(boardService.getList(parameter));
 	}
 	/**
 	 * 상세정보 리턴

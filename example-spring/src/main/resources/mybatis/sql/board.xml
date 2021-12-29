@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.kr.springboot.mvc.repository.BoardRepository">
-	<select id="getList" parameterType="co.kr.springboot.mvc.domain.Board" resultType="co.kr.springboot.mvc.domain.Board">
+	<select id="getList" parameterType="co.kr.springboot.mvc.parameter.BoardSearchParameter" resultType="co.kr.springboot.mvc.domain.Board">
 		SELECT B.BOARD_SEQ
 			, B.TITLE
 			, B.CONTENTS
 			, B.REG_DATE 
 		FROM T_BOARD B
+		<where>
+			<if test="@org.apache.commons.lang3.StringUtils@isNotEmpty(keyword)">
+			AND B.TITLE LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="@org.apache.commons.lang3.ObjectUtils@isNotEmpty(boardTypes)">
+			AND B.BOARD_TYPE IN(
+				<foreach collection="boardTypes" item="value" separator=",">
+				#{value}
+				</foreach>
+			)
+			</if>
+		</where>
 		ORDER BY B.BOARD_SEQ DESC
 	</select>
 	<select id="get" parameterType="int" resultType="co.kr.springboot.mvc.domain.Board">

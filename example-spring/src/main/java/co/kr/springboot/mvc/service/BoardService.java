@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import co.kr.springboot.mvc.domain.Board;
 import co.kr.springboot.mvc.parameter.BoardParameter;
+import co.kr.springboot.mvc.parameter.BoardSearchParameter;
 import co.kr.springboot.mvc.repository.BoardRepository;
 
 /**
@@ -20,9 +21,9 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 	/*목록 리턴*/
-	public List<Board> getList(){
+	public List<Board> getList(BoardSearchParameter parameter){
 		System.out.println("service");
-		return boardRepository.getList();
+		return boardRepository.getList(parameter);
 	}
 	/*상세정보 리턴*/
 	public Board get(int boardSeq) {

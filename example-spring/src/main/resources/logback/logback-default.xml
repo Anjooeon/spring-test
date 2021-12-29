@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 로그가 저장될 경로 -->
+	<property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:s} %p %c[%method:%line] - %msg%n" /> <!-- 파일로 로그를 작성할 때 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${LOG_PATTERN}</Pattern>
+		</layout>
+	</appender> <!-- 콘솔에서 로그를 작성할 때 -->
+	<logger name="co.kr.springboot.mvc.repository">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.springframework.boot">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.springframework.boot.devtools.restart">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.springframework">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="springfox">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.hibernate">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.apache">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.apache.http.imple.conn">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="log4jdbc">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="org.mybatis">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="com.zaxxer">
+		<level value="ERROR"></level>
+	</logger>
+	<logger name="jdbc.sqltiming" level="ERROR" />
+	<logger name="jdbc.audit" level="OFF" />
+	<logger name="jdbc.resultset" level="OFF" />
+	<logger name="jdbc.resultsettable" level="ERROR" />
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>

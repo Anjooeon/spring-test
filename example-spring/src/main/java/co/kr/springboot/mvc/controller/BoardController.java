@@ -1,7 +1,11 @@
 package co.kr.springboot.mvc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +36,7 @@ import io.swagger.annotations.ApiOperation;
 public class BoardController {
 	@Autowired
 	BoardService boardService;
+	Logger logger = LoggerFactory.getLogger(getClass());
 	/**
 	 * 목록 리턴
 	 * @author 안주연
@@ -82,6 +87,58 @@ public class BoardController {
 		
 		boardService.save(parameter);
 		return new BaseResponse<Integer>(parameter.getBoardSeq());
+	}
+	/**
+	 * 저장/업데이트 처리 
+	 * @author 안주연
+	 * */
+	@PutMapping("/saveList1")
+	@ApiOperation(value = "대용량 등록처리1", notes = "대용량 등록처리1")
+	public BaseResponse<Boolean> save1() {
+		int count = 0;
+		List<BoardParameter> list = new ArrayList<BoardParameter>();
+		while(true) {
+			count++;
+			String title = RandomStringUtils.randomAlphabetic(10);
+			String contents = RandomStringUtils.randomAlphabetic(10);
+			list.add(new BoardParameter(title, contents));
+			
+			if(count >= 10000) {
+				break;
+			}
+		}
+		
+		long start = System.currentTimeMillis();
+		boardService.save1(list);
+		long end = System.currentTimeMillis();
+		logger.info("실행시간 : {}", (end-start)/ 1000.0);
+		return new BaseResponse<Boolean>(true);
+	}
+	/**
+	 * 저장/업데이트 처리 
+	 * @author 안주연
+	 * */
+	@PutMapping("/saveList2")
+	@ApiOperation(value = "대용량 등록처리2", notes = "대용량 등록처리2")
+	public BaseResponse<Boolean> saveList2() {
+		int count = 0;
+		List<BoardParameter> list = new ArrayList<BoardParameter>();
+		while(true) {
+			count++;
+			String title = RandomStringUtils.randomAlphabetic(10);
+			String contents = RandomStringUtils.randomAlphabetic(10);
+			list.add(new BoardParameter(title, contents));
+			
+			if(count >= 10000) {
+				break;
+			}
+		}
+		
+		long start = System.currentTimeMillis();
+		boardService.saveList2(list);
+		long end = System.currentTimeMillis();
+		logger.info("실행시간 : {}", (end-start)/ 1000.0);
+		return new BaseResponse<Boolean>(true);
 	}
 	/**
 	 * 삭제 처리 

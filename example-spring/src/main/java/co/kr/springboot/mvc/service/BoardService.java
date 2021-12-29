@@ -1,6 +1,8 @@
 package co.kr.springboot.mvc.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,18 @@ public class BoardService {
 		}else {
 			boardRepository.update(parameter);
 		}
+	}
+	/*저장/업데이트 처리*/
+	public void save1(List<BoardParameter> list) {
+		for(BoardParameter parameter : list) {
+			boardRepository.save(parameter);
+		}
+	}
+	/*저장/업데이트 처리*/
+	public void saveList2(List<BoardParameter> list) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("boardList", list);
+		boardRepository.saveList(paramMap);
 	}
 	/*삭제 처리*/
 	public void delete (int boardSeq) {

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import co.kr.springboot.framework.data.domain.PageRequestParameter;
 import co.kr.springboot.mvc.domain.Board;
 import co.kr.springboot.mvc.parameter.BoardParameter;
 import co.kr.springboot.mvc.parameter.BoardSearchParameter;
@@ -21,9 +22,9 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 	/*목록 리턴*/
-	public List<Board> getList(BoardSearchParameter parameter){
+	public List<Board> getList(PageRequestParameter<BoardSearchParameter> pageRequestParameter){
 		System.out.println("service");
-		return boardRepository.getList(parameter);
+		return boardRepository.getList(pageRequestParameter);
 	}
 	/*상세정보 리턴*/
 	public Board get(int boardSeq) {

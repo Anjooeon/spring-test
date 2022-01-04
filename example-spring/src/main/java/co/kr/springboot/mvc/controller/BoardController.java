@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import co.kr.springboot.configuration.exception.BaseException;
 import co.kr.springboot.configuration.http.BaseResponse;
 import co.kr.springboot.configuration.http.BaseResponseCode;
+import co.kr.springboot.framework.data.domain.MySQLPageReqeust;
+import co.kr.springboot.framework.data.domain.PageRequestParameter;
+import co.kr.springboot.framework.web.bind.annotaion.RequestConfig;
 import co.kr.springboot.mvc.domain.Board;
 import co.kr.springboot.mvc.parameter.BoardParameter;
 import co.kr.springboot.mvc.parameter.BoardSearchParameter;
@@ -46,8 +49,13 @@ public class BoardController {
 	@GetMapping("/list")
 	@ApiOperation(value = "목록 조회", notes = "게시물에 모든 목록을 조회할 수 있습니다.")
 	
-	public BaseResponse<List<Board>> getList(@ApiParam BoardSearchParameter parameter){
-		return new BaseResponse<List<Board>>(boardService.getList(parameter));
+	public BaseResponse<List<Board>> getList(
+			@ApiParam BoardSearchParameter parameter,
+			@ApiParam MySQLPageReqeust pageRequest
+			){
+		logger.info("pageRequest : {}", pageRequest);
+		PageRequestParameter<BoardSearchParameter> pageRequestParameter = new PageRequestParameter<BoardSearchParameter>(pageRequest, parameter);
+		return new BaseResponse<List<Board>>(boardService.getList(pageRequestParameter));
 	}
 	/**
 	 * 상세정보 리턴
@@ -72,6 +80,7 @@ public class BoardController {
 	 * @author 안주연
 	 * */
 	@PutMapping
+	@RequestConfig
 	@ApiOperation(value = "등록/ 수정 처리", notes = "신규 게시물 저장 및 기존 게시물 업데이트 가능합니다.")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name ="boardSeq", value="게시물 번호", example = "1"),
@@ -147,6 +156,7 @@ public class BoardController {
 	 * @author 안주연
 	 * */
 	@DeleteMapping("/{boardSeq}")
+	@RequestConfig
 	@ApiOperation(value = "삭제 처리", notes = "게시물 번호에 해당하는 정보를 삭제합니다.")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name ="boardSeq", value="게시물 번호", example = "1")

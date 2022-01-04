@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import co.kr.springboot.framework.data.domain.PageRequestParameter;
 import co.kr.springboot.mvc.domain.Board;
 import co.kr.springboot.mvc.parameter.BoardParameter;
 import co.kr.springboot.mvc.parameter.BoardSearchParameter;
@@ -12,7 +13,7 @@ import co.kr.springboot.mvc.parameter.BoardSearchParameter;
 /*게시판 repository*/
 @Repository
 public interface BoardRepository {
-	List<Board> getList(BoardSearchParameter parameter);
+	List<Board> getList(PageRequestParameter<BoardSearchParameter> pageRequestParameter);
 	Board get(int boardSeq);
 	void save(BoardParameter board);
 	void saveList(Map<String,Object> paramMap);
